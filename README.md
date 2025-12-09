@@ -17,13 +17,19 @@ python -m venv .venv
 ```
 pip install -r requirements.txt
 ```
-3) Create and seed the database (adjust credentials as needed):
+3) Configure database credentials (create `.env` from `env.example`):
+```
+DB_HOST=localhost
+DB_USER=your_mysql_user
+DB_PASSWORD=your_mysql_password
+DB_NAME=theapp
+```
+
+4) Create and seed the database (adjust credentials as needed):
 ```
 mysql -u root -p < DDL.sql
 mysql -u root -p < DML.sql   # optional sample data
 ```
-4) Configure DB credentials: update `db.py` or move the credentials into environment variables before running in production.
-
 5) Run the app:
 ```
 set FLASK_APP=app.py
@@ -60,6 +66,6 @@ git push -u origin main
 If a `venv/` folder exists locally, it is ignored by `.gitignore` and will not be pushed.
 
 ## Notes
-- Change the hardcoded DB password in `db.py` and avoid committing real secrets; prefer env vars.
+- Set DB credentials via environment variables (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`). Do not commit real secrets.
 - Enable MySQL and ensure the `theapp` database exists before running the server.
 
