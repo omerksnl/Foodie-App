@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Menu Item for {{ restaurant.name }}</h2>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name:</label>
+                        <input type="text" name="name" class="form-control" value="{{ item.name }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Cuisine Type:</label>
+                        <input type="text" name="cuisine_type" class="form-control" value="{{ item.cuisine_type }}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description:</label>
+                    <textarea name="description" class="form-control" rows="2">{{ item.description }}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Price:</label>
+                        <input type="number" step="0.01" name="price" class="form-control" value="{{ item.price }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount (%):</label>
+                        <input type="number" step="1" min="0" max="100" name="discount" class="form-control" value="{{ item.discount or '' }}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount End Time:</label>
+                        <input type="datetime-local" name="discount_end_time" class="form-control" value="{{ item.discount_end_time or '' }}">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a href="{{ url_for('manager_menu') }}" class="btn btn-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

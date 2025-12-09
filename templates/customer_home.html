@@ -1,0 +1,82 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Customer Home{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category if category != '_' else 'info' }} alert-dismissible fade show mb-4">
+                    <strong>{% if category == 'warning' %}⚠️ Warning:{% elif category == 'danger' %}❌ Error:{% elif category == 'success' %}✅ Success:{% else %}ℹ️ Info:{% endif %}</strong>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <form action="{{ url_for('search') }}" method="GET" class="d-flex">
+                <input type="text" name="q" class="form-control" placeholder="Search restaurants or tags…">
+                <button type="submit" class="btn btn-primary ms-2">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+    <a href="{{ url_for('customer_orders') }}"
+       class="btn btn-outline-primary position-relative mb-3"
+       aria-label="My Orders">
+        <i class="bi bi-receipt fs-4"></i>
+        {% if order_history_count %}
+        <span class="position-absolute top-0 start-100 translate-middle
+                     badge rounded-pill bg-danger">
+            {{ order_history_count }}
+        </span>
+        {% endif %}
+        <span class="visually-hidden">My Orders</span>
+    </a>
+
+    {% if popular_restaurants %}
+    <div class="row mb-4">
+        <div class="col-12"><h2>Popular Restaurants</h2></div>
+
+        {% for restaurant in popular_restaurants %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ restaurant.name }}</h5>
+
+                    <p class="card-text">
+                        <strong>Rating:</strong>
+                        {{ "%.1f"|format(restaurant.avg_rating) }}/5.0
+                        ({{ restaurant.rating_count }} reviews)<br>
+                        <strong>Location:</strong>
+                        {{ restaurant.city }}, {{ restaurant.town }}<br>
+                        <strong>Phone:</strong>
+                        {{ restaurant.phone_num }}
+                    </p>
+
+                    {% if restaurant.tags %}
+                    <p class="mt-2">
+                        <strong>Tags:</strong>
+                        {{ restaurant.tags|replace(',', ', ') }}
+                    </p>
+                    {% endif %}
+
+                    <a href="{{ url_for('restaurant_menu',
+                                        restaurant_id=restaurant.restaurant_id) }}"
+                       class="btn btn-primary">View Menu</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

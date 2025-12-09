@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Manager Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Manager Dashboard</h1>
+    
+    {% if restaurant %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>{{ restaurant.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Address:</strong> {{ restaurant.address }}, {{ restaurant.town }}, {{ restaurant.city }}</p>
+                    <p><strong>Phone:</strong> {{ restaurant.phone_num }}</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-info">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pending Orders</h5>
+                                    <p class="card-text display-4">{{ pending_orders }}</p>
+                                    <a href="{{ url_for('manager_orders') }}" class="btn btn-light mt-2">View Orders</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-success">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today's Sales</h5>
+                                    <p class="card-text display-4">${{ '%.2f'|format(today_sales|float) }}</p>
+                                    <a href="{{ url_for('manager_sales') }}" class="btn btn-light mt-2">View Sales</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-white bg-warning">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Balance</h5>
+                                    <p class="card-text display-4">${{ '%.2f'|format(restaurant.balance|float if restaurant.balance else 0) }}</p>
+                                    <form action="{{ url_for('update_sales_portfolio') }}" method="post">
+                                        <button type="submit" class="btn btn-light mt-2">Update Balance</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="{{ url_for('manager_restaurant') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-store"></i> Restaurant Profile
+                </a>
+                <a href="{{ url_for('manager_menu') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-utensils"></i> Manage Menu
+                </a>
+                <a href="{{ url_for('manager_orders') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-clipboard-list"></i> Manage Orders
+                </a>
+                <a href="{{ url_for('manager_sales') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-chart-line"></i> Sales Statistics
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <h4>Welcome to your Restaurant Manager Dashboard!</h4>
+        <p>You haven't set up your restaurant yet. Please create your restaurant profile to get started.</p>
+        <a href="{{ url_for('manager_restaurant') }}" class="btn btn-primary">Create Restaurant</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

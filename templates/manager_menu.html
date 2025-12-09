@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Manage Menu for {{ restaurant.name }}</h2>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">Add New Menu Item</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" id="menu-form">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name:</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Cuisine Type:</label>
+                        <input type="text" name="cuisine_type" id="cuisine_type" class="form-control">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description:</label>
+                    <textarea name="description" id="description" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Price:</label>
+                        <input type="number" step="0.01" name="price" id="price" class="form-control" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount (%):</label>
+                        <input type="number" step="1" min="0" max="100" name="discount" id="discount" class="form-control">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Discount End Time:</label>
+                        <input type="datetime-local" name="discount_end_time" id="discount_end_time" class="form-control">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">Current Menu Items</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Cuisine Type</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Discount End</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in menu_items %}
+                        <tr {% if item.discount and item.discount_end_time and item.discount|float > 0 and item.discount_end_time > now %}class="table-success"{% endif %}>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.cuisine_type }}</td>
+                            <td>
+                                {% if item.discount and item.discount_end_time and item.discount|float > 0 and item.discount_end_time > now %}
+                                    <span class="text-decoration-line-through text-muted">${{ '%.2f'|format(item.price) }}</span>
+                                    <span class="badge bg-success ms-2">${{ '%.2f'|format(item.price * (1 - item.discount/100)) }}</span>
+                                {% else %}
+                                    ${{ '%.2f'|format(item.price) }}
+                                {% endif %}
+                            </td>
+                            <td>{% if item.discount and item.discount|float > 0 %}{{ item.discount }}%{% endif %}</td>
+                            <td>
+                                {% if item.discount_end_time %}
+                                    {{ item.discount_end_time }}
+                                    {% if item.discount and item.discount|float > 0 and item.discount_end_time > now %}
+                                        <span class="badge bg-info ms-2">Active</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('edit_menu_item', item_id=item.item_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

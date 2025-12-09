@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Foodie App{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login</h2>
+                    <form method="POST" action="{{ url_for('login') }}">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Login as</label>
+                            <div class="d-flex gap-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="user_type" 
+                                           id="customer" value="customer" checked>
+                                    <label class="form-check-label" for="customer">
+                                        <i class="fas fa-user me-1"></i>Customer
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="user_type" 
+                                           id="manager" value="manager">
+                                    <label class="form-check-label" for="manager">
+                                        <i class="fas fa-store me-1"></i>Manager
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        </div>
+        </div>
+        </div>
+</div>
+{% endblock %}

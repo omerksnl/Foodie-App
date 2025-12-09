@@ -1,0 +1,195 @@
+/* Foodie App Master Stylesheet */
+:root {
+    --primary: #ff4757; /* Vibrant red */
+    --secondary: #2ed573; /* Fresh green */
+    --light: #f1f2f6; /* Light gray */
+    --dark: #2f3542; /* Dark slate */
+    --accent: #ffa502; /* Orange accent */
+}
+
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 2rem 1rem;
+}
+
+/* Navigation */
+.navbar {
+    background: white;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary) !important;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+    .navbar-brand img {
+        height: 30px;
+    }
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+/* Forms */
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    border: 2px solid #ced6e0;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+    .btn-primary:hover {
+        background: #ff6b81;
+    }
+
+/* Rating Stars */
+.rating-stars {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+    .rating-stars input[type="radio"] {
+        display: none;
+    }
+
+    .rating-stars label {
+        font-size: 2rem;
+        color: #dfe4ea;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+        .rating-stars input:checked ~ label,
+        .rating-stars label:hover {
+            color: var(--accent);
+        }
+
+/* Order Status */
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-not-bought {
+    background: #f6e58d;
+    color: #6b5900;
+}
+
+.status-accepted {
+    background: #7bed9f;
+    color: #006400;
+}
+
+.status-preparing {
+    background: #70a1ff;
+    color: #1e3799;
+}
+
+.status-delivered {
+    background: #2ed573;
+    color: #ffffff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+/* Navigation styles */
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.welcome-msg {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.logout-btn {
+    background: #ff4757;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+    .logout-btn:hover {
+        opacity: 0.9;
+    }
+
+/* Alert messages */
+.alert {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Restaurant{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ 'Edit' if restaurant else 'Create' }} Restaurant</h2>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'danger' if category=='error' else category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Restaurant Name</label>
+            <input type="text" class="form-control" id="name" name="name" required value="{{ restaurant.name if restaurant else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" required value="{{ restaurant.address if restaurant else '' }}">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" required value="{{ restaurant.city if restaurant else '' }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="town" class="form-label">Town</label>
+                <input type="text" class="form-control" id="town" name="town" required value="{{ restaurant.town if restaurant else '' }}">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="phone_num" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone_num" name="phone_num" required value="{{ restaurant.phone_num if restaurant else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="tags" class="form-label">Tags (comma-separated)</label>
+            <input type="text" class="form-control" id="tags" name="tags" value="{{ tags|join(', ') if tags else '' }}">
+            {% if tags %}
+            <div class="form-text">Current tags: {{ tags|join(', ') }}</div>
+            {% endif %}
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">{{ 'Update' if restaurant else 'Create' }}</button>
+        </div>
+    </form>
+    <a href="{{ url_for('manager_dashboard') }}" class="btn btn-link mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}
