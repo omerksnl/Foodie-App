@@ -23,6 +23,7 @@ DB_HOST=localhost
 DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=theapp
+FLASK_SECRET_KEY=change-me
 ```
 
 4) Create and seed the database (adjust credentials as needed):
@@ -66,6 +67,6 @@ git push -u origin main
 If a `venv/` folder exists locally, it is ignored by `.gitignore` and will not be pushed.
 
 ## Notes
-- Set DB credentials via environment variables (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`). Do not commit real secrets.
+- Set DB credentials via environment variables (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`) and a strong `FLASK_SECRET_KEY`. Do not commit real secrets.
 - Enable MySQL and ensure the `theapp` database exists before running the server.
 
