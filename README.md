@@ -50,22 +50,6 @@ The server defaults to `http://127.0.0.1:5000`.
 - `DDL.sql` — schema creation + view/trigger
 - `DML.sql` — seed data and reset script
 
-## Upload to GitHub (quick guide)
-1) Create a new empty repo on GitHub (no README).
-2) In this folder, initialize git and commit:
-```
-git init
-git add .
-git commit -m "Initial commit"
-```
-3) Point to GitHub and push:
-```
-git branch -M main
-git remote add origin https://github.com/<your-username>/<repo-name>.git
-git push -u origin main
-```
-If a `venv/` folder exists locally, it is ignored by `.gitignore` and will not be pushed.
-
 ## Notes
 - Set DB credentials via environment variables (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`) and a strong `FLASK_SECRET_KEY`. Do not commit real secrets.
 - Enable MySQL and ensure the `theapp` database exists before running the server.
